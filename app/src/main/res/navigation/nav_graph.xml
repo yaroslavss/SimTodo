@@ -7,11 +7,11 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="ru.yara.simtodo.ui.home.HomeFragment"
-        android:label="fragment_home"
+        android:label="@string/home_fragment_label"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/eventDetailsFragment"
         android:name="ru.yara.simtodo.ui.eventdetails.EventDetailsFragment"
-        android:label="fragment_event_details"
+        android:label="@string/event_details_fragment_label"
         tools:layout="@layout/fragment_event_details" />
 </navigation>
