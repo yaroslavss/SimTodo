@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.yara.simtodo.databinding.ItemTodoBinding
 import ru.yara.simtodo.domain.model.Hour
+import java.time.format.DateTimeFormatter
 
 class TodoListRecyclerAdapter(
     var hours: List<Hour>,
@@ -15,6 +16,7 @@ class TodoListRecyclerAdapter(
 
     private var _binding: ItemTodoBinding? = null
     private val binding get() = _binding!!
+    private val formatter = DateTimeFormatter.ofPattern("HH:mm")
 
     inner class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -33,8 +35,10 @@ class TodoListRecyclerAdapter(
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val item = hours[position]
         holder.itemView.apply {
-            binding.tvHourLabel.text = item.startHour + "-" + item.endHour
+            binding.tvHourLabel.text =
+                item.startHour.format(formatter) + " - " + item.endHour.format(formatter)
         }
+        holder.setIsRecyclable(false)
 
         binding.root.setOnClickListener {
             onItemClick(hours[position])

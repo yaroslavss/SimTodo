@@ -1,6 +1,8 @@
 package ru.yara.simtodo.domain.model
 
+import java.time.LocalDateTime
+
 data class Hour(
-    val startHour: String,
-    val endHour: String
+    val startHour: LocalDateTime,
+    val endHour: LocalDateTime
 )
