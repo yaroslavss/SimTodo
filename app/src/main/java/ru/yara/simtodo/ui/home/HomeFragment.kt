@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.yara.simtodo.R
 import ru.yara.simtodo.databinding.FragmentHomeBinding
+import java.time.LocalDate
 
 class HomeFragment : Fragment() {
 
@@ -44,6 +45,12 @@ class HomeFragment : Fragment() {
         binding.rvTodoList.adapter = adapter
         binding.rvTodoList.layoutManager = LinearLayoutManager(activity)
 
+        // proceed date change on CalendarView
+        binding.cvCalendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
+            viewModel.getEventsForDay(LocalDate.of(year, (month + 1), dayOfMonth))
+        }
+
+        // set event list
         viewModel.hourListLiveData.observe(viewLifecycleOwner) { list ->
             adapter.hours = list
             adapter.notifyDataSetChanged()

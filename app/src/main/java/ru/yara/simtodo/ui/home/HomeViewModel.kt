@@ -9,17 +9,20 @@ import java.time.LocalDate
 class HomeViewModel : ViewModel() {
 
     private val now = LocalDate.now()
-
-    private val hourList: List<Hour> = (0..23).map { hour ->
-        Hour(
-            startHour = now.atStartOfDay().plusHours(hour.toLong()),
-            endHour = now.atStartOfDay().plusHours((hour + 1).toLong())
-        )
-    }
     private val _hourListLiveData = MutableLiveData<List<Hour>>()
     val hourListLiveData: LiveData<List<Hour>> = _hourListLiveData
 
     init {
+        getEventsForDay(now)
+    }
+
+    fun getEventsForDay(day: LocalDate) {
+        val hourList: List<Hour> = (0..23).map { hour ->
+            Hour(
+                startHour = day.atStartOfDay().plusHours(hour.toLong()),
+                endHour = day.atStartOfDay().plusHours((hour + 1).toLong())
+            )
+        }
         _hourListLiveData.postValue(hourList)
     }
 }
