@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.yara.simtodo.data.model.EventList
 import ru.yara.simtodo.data.repository.LocalRepositoryImpl
+import ru.yara.simtodo.domain.model.Event
 import ru.yara.simtodo.domain.model.Hour
 import java.time.LocalDate
 
@@ -35,7 +35,7 @@ class HomeViewModel : ViewModel() {
         _hourListLiveData.postValue(hourList)
     }
 
-    private fun getAllEventsFromJson(context: Context?): EventList {
+    private fun getAllEventsFromJson(context: Context?): List<Event> {
         return localRepository.getAllEventsFromJson(context)
     }
 }
