@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
 
         // proceed date change on CalendarView
         binding.cvCalendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            viewModel.getEventsForDay(LocalDate.of(year, (month + 1), dayOfMonth))
+            viewModel.getEventsForDay(LocalDate.of(year, (month + 1), dayOfMonth), context)
         }
 
         // set event list

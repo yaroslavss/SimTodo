@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.yara.simtodo.databinding.ItemTodoBinding
 import ru.yara.simtodo.domain.model.Hour
@@ -34,9 +35,18 @@ class TodoListRecyclerAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val item = hours[position]
+        val context = holder.itemView.context
         holder.itemView.apply {
             binding.tvHourLabel.text =
                 item.startHour.format(formatter) + " - " + item.endHour.format(formatter)
+
+            // add events for this hour
+            for (event in item.eventList) {
+                val eventTextView = TextView(context)
+                eventTextView.text =
+                    event.dateStart.format(formatter) + " - " + event.dateFinish.format(formatter) + ", " + event.name
+                binding.llEventList.addView(eventTextView)
+            }
         }
         holder.setIsRecyclable(false)
 
