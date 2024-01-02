@@ -22,15 +22,17 @@ class HomeViewModel : ViewModel() {
     }
 
     fun getEventsForDay(day: LocalDate, context: Context?) {
+        val allEventList = getAllEventsFromJson(context)
+
         val hourList: List<Hour> = (0..23).map { hour ->
+            val start = day.atStartOfDay().plusHours(hour.toLong())
+            val end = day.atStartOfDay().plusHours((hour + 1).toLong())
             Hour(
-                startHour = day.atStartOfDay().plusHours(hour.toLong()),
-                endHour = day.atStartOfDay().plusHours((hour + 1).toLong())
+                startHour = start,
+                endHour = end,
+                eventList = allEventList.filter { (it.dateStart >= start && it.dateStart < end) || (it.dateFinish > start && it.dateFinish <= end) }
             )
         }
-
-        val eventList = getAllEventsFromJson(context)
-        println("!!! $eventList")
 
         _hourListLiveData.postValue(hourList)
     }

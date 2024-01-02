@@ -4,5 +4,6 @@ import java.time.LocalDateTime
 
 data class Hour(
     val startHour: LocalDateTime,
-    val endHour: LocalDateTime
+    val endHour: LocalDateTime,
+    val eventList: List<Event>
 )
