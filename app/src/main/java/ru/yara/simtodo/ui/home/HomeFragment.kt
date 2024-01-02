@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import ru.yara.simtodo.R
 import ru.yara.simtodo.databinding.FragmentHomeBinding
 import java.time.LocalDate
 
@@ -37,10 +35,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navController = view.findNavController()
-        val adapter = TodoListRecyclerAdapter(listOf()) { hour ->
-            navController.navigate(R.id.eventDetailsFragment)
-        }
+        val adapter = TodoListRecyclerAdapter(listOf())
 
         binding.rvTodoList.adapter = adapter
         binding.rvTodoList.layoutManager = LinearLayoutManager(activity)

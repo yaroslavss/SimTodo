@@ -5,14 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import ru.yara.simtodo.R
 import ru.yara.simtodo.databinding.ItemTodoBinding
 import ru.yara.simtodo.domain.model.Hour
 import java.time.format.DateTimeFormatter
 
 class TodoListRecyclerAdapter(
-    var hours: List<Hour>,
-    private val onItemClick: (hour: Hour) -> Unit
+    var hours: List<Hour>
 ) : RecyclerView.Adapter<TodoListRecyclerAdapter.TodoViewHolder>() {
 
     private var _binding: ItemTodoBinding? = null
@@ -36,22 +37,26 @@ class TodoListRecyclerAdapter(
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val item = hours[position]
         val context = holder.itemView.context
+
         holder.itemView.apply {
             binding.tvHourLabel.text =
                 item.startHour.format(formatter) + " - " + item.endHour.format(formatter)
 
             // add events for this hour
             for (event in item.eventList) {
-                val eventTextView = TextView(context)
-                eventTextView.text =
-                    event.dateStart.format(formatter) + " - " + event.dateFinish.format(formatter) + ", " + event.name
+                val eventTextView = TextView(context).apply {
+                    id = event.id
+                    text = event.dateStart.format(formatter) + " - " + event.dateFinish.format(
+                        formatter
+                    ) + ", " + event.name
+                    setOnClickListener {
+                        it.findNavController().navigate(R.id.eventDetailsFragment)
+                    }
+                }
                 binding.llEventList.addView(eventTextView)
             }
         }
-        holder.setIsRecyclable(false)
 
-        binding.root.setOnClickListener {
-            onItemClick(hours[position])
-        }
+        holder.setIsRecyclable(false)
     }
 }
