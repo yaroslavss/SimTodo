@@ -1,6 +1,7 @@
 package ru.yara.simtodo.ui.home
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,7 @@ class TodoListRecyclerAdapter(
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val item = hours[position]
         val context = holder.itemView.context
+        val bundle = Bundle()
 
         holder.itemView.apply {
             binding.tvHourLabel.text =
@@ -50,7 +52,8 @@ class TodoListRecyclerAdapter(
                         formatter
                     ) + ", " + event.name
                     setOnClickListener {
-                        it.findNavController().navigate(R.id.eventDetailsFragment)
+                        bundle.putParcelable("event", event)
+                        it.findNavController().navigate(R.id.eventDetailsFragment, bundle)
                     }
                 }
                 binding.llEventList.addView(eventTextView)
