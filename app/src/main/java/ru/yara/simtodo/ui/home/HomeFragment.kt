@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import ru.yara.simtodo.R
 import ru.yara.simtodo.databinding.FragmentHomeBinding
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 class HomeFragment : Fragment() {
 
@@ -37,20 +37,22 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navController = view.findNavController()
-        val adapter = TodoListRecyclerAdapter(listOf()) { hour ->
-            navController.navigate(R.id.eventDetailsFragment)
-        }
+        // set date on calendar view and get events on start
+        setDate()
 
+        // set recycler view adapter
+        val adapter = TodoListRecyclerAdapter(listOf())
         binding.rvTodoList.adapter = adapter
         binding.rvTodoList.layoutManager = LinearLayoutManager(activity)
 
         // proceed date change on CalendarView
         binding.cvCalendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            viewModel.getEventsForDay(LocalDate.of(year, (month + 1), dayOfMonth), context)
+            val day = LocalDate.of(year, (month + 1), dayOfMonth)
+            viewModel.getEventsForDay(day, context)
+            viewModel.currentDate = day
         }
 
-        // set event list
+        // observe hours with events livedata
         viewModel.hourListLiveData.observe(viewLifecycleOwner) { list ->
             adapter.hours = list
             adapter.notifyDataSetChanged()
@@ -60,5 +62,18 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setDate() {
+        var currentDate = viewModel.currentDate
+        val zoneOffset = ZoneOffset.systemDefault().getRules().getOffset(LocalDateTime.now())
+
+        if (currentDate != null) {
+            binding.cvCalendar.date = currentDate.atStartOfDay().toEpochSecond(zoneOffset) * 1000
+        } else {
+            currentDate = LocalDate.now()
+            viewModel.getEventsForDay(currentDate, context)
+            viewModel.currentDate = currentDate
+        }
     }
 }

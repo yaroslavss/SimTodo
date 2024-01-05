@@ -13,13 +13,9 @@ class HomeViewModel : ViewModel() {
 
     private var localRepository = LocalRepositoryImpl()
 
-    private val now = LocalDate.now()
     private val _hourListLiveData = MutableLiveData<List<Hour>>()
     val hourListLiveData: LiveData<List<Hour>> = _hourListLiveData
-
-    init {
-        //getEventsForDay(now)
-    }
+    var currentDate: LocalDate? = null
 
     fun getEventsForDay(day: LocalDate, context: Context?) {
         val allEventList = getAllEventsFromJson(context)
