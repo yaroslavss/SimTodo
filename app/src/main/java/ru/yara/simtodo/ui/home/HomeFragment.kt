@@ -7,7 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.yara.simtodo.databinding.FragmentHomeBinding
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -48,7 +52,11 @@ class HomeFragment : Fragment() {
         // proceed date change on CalendarView
         binding.cvCalendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val day = LocalDate.of(year, (month + 1), dayOfMonth)
-            viewModel.getEventsForDay(day, context)
+            viewLifecycleOwner.lifecycleScope.launch {
+                withContext(Dispatchers.IO){
+                    viewModel.getEventsForDay(day, context)
+                }
+            }
             viewModel.currentDate = day
         }
 
@@ -72,7 +80,11 @@ class HomeFragment : Fragment() {
             binding.cvCalendar.date = currentDate.atStartOfDay().toEpochSecond(zoneOffset) * 1000
         } else {
             currentDate = LocalDate.now()
-            viewModel.getEventsForDay(currentDate, context)
+            viewLifecycleOwner.lifecycleScope.launch {
+                withContext(Dispatchers.IO){
+                    viewModel.getEventsForDay(currentDate, context)
+                }
+            }
             viewModel.currentDate = currentDate
         }
     }
