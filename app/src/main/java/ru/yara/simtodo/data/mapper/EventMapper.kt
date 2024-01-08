@@ -6,20 +6,13 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset
 
 object EventMapper {
-    private val zoneOffset = ZoneOffset.systemDefault().getRules().getOffset(LocalDateTime.now())
 
-    fun Event.toDomainEvent() = ru.yara.simtodo.domain.model.Event(
-        id = this.id,
-        dateStart = LocalDateTime.ofEpochSecond(this.dateStart.toLong(), 0, zoneOffset),
-        dateFinish = LocalDateTime.ofEpochSecond(this.dateFinish.toLong(), 0, zoneOffset),
-        name = this.name,
-        description = this.description
-    )
+    private val zoneOffset = ZoneOffset.systemDefault().rules.getOffset(LocalDateTime.now())
 
     fun Event.toEventEntity() = EventEntity(
         id = this.id,
-        dateStart = this.dateStart,
-        dateFinish = this.dateFinish,
+        dateStart = LocalDateTime.ofEpochSecond(this.dateStart.toLong(), 0, zoneOffset),
+        dateFinish = LocalDateTime.ofEpochSecond(this.dateFinish.toLong(), 0, zoneOffset),
         name = this.name,
         description = this.description
     )
