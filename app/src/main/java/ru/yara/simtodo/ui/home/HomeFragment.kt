@@ -28,6 +28,14 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // get initial data
+        val allEventList = viewModel.getAllEventsFromJson(context)
+        viewModel.saveEventsIntoDb(allEventList)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,7 +62,7 @@ class HomeFragment : Fragment() {
             val day = LocalDate.of(year, (month + 1), dayOfMonth)
             viewLifecycleOwner.lifecycleScope.launch {
                 withContext(Dispatchers.IO){
-                    viewModel.getEventsForDay(day, context)
+                    viewModel.getEventsForDay(day)
                 }
             }
             viewModel.currentDate = day
@@ -82,7 +90,7 @@ class HomeFragment : Fragment() {
             currentDate = LocalDate.now()
             viewLifecycleOwner.lifecycleScope.launch {
                 withContext(Dispatchers.IO){
-                    viewModel.getEventsForDay(currentDate, context)
+                    viewModel.getEventsForDay(currentDate)
                 }
             }
             viewModel.currentDate = currentDate

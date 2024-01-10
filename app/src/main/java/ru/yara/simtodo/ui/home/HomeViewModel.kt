@@ -33,9 +33,7 @@ class HomeViewModel : ViewModel() {
         App.instance.dagger.inject(this)
     }
 
-    suspend fun getEventsForDay(day: LocalDate, context: Context?) {
-        val allEventList = getAllEventsFromJson(context)
-        saveEventsIntoDb(allEventList)
+    suspend fun getEventsForDay(day: LocalDate) {
         val eventList = getEventsForDayFromDB(
             day.atStartOfDay(),
             LocalTime.MAX.atDate(day)
@@ -54,11 +52,11 @@ class HomeViewModel : ViewModel() {
         _hourListLiveData.postValue(hourList)
     }
 
-    private fun getAllEventsFromJson(context: Context?): List<EventEntity> {
+    fun getAllEventsFromJson(context: Context?): List<EventEntity> {
         return localRepository.getAllEventsFromJson(context)
     }
 
-    private suspend fun saveEventsIntoDb(events: List<EventEntity>) =
+    fun saveEventsIntoDb(events: List<EventEntity>) =
         viewModelScope.launch(Dispatchers.IO) {
             databaseRepository.insertAllEvents(events)
         }
