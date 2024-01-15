@@ -5,6 +5,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="home_fragment_label">Todo List</string>
     <string name="event_details_fragment_label">Событие</string>
+    <string name="add_event_fragment_label">Добавить событие</string>
 
     <!-- Strings used for event details fragment -->
     <string name="event_dt_start_label">Дата и время начала</string>
