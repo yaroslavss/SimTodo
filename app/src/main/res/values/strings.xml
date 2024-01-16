@@ -5,10 +5,15 @@
     <!-- Strings used for fragments for navigation -->
     <string name="home_fragment_label">Todo List</string>
     <string name="event_details_fragment_label">Событие</string>
+    <string name="add_event_fragment_label">Создать событие</string>
 
     <!-- Strings used for event details fragment -->
     <string name="event_dt_start_label">Дата и время начала</string>
     <string name="event_dt_end_label">Дата и время окончания</string>
     <string name="event_title_label">Название</string>
     <string name="event_desc_label">Описание</string>
+
+    <!-- Strings used for new event fragment -->
+    <string name="btn_add_event_label">Создать событие</string>
+    <string name="msg_empty_fields">Не все поля заполнены!</string>
 </resources>

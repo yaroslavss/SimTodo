@@ -11,6 +11,9 @@ interface EventDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllEvents(list: List<EventEntity>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertEvent(eventEntity: EventEntity)
+
     @Query("SELECT * FROM events WHERE date_start>=:dtStart AND date_finish<=:dtFinish")
     fun getEventsForDay(dtStart: LocalDateTime, dtFinish: LocalDateTime): List<EventEntity>
 }

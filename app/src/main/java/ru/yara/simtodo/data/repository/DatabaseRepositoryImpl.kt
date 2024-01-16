@@ -11,6 +11,10 @@ class DatabaseRepositoryImpl(private val eventDao: EventDao) : DatabaseRepositor
         eventDao.insertAllEvents(list)
     }
 
+    override suspend fun insertEvent(eventEntity: EventEntity) {
+        eventDao.insertEvent(eventEntity)
+    }
+
     override fun getEventsForDay(dtStart: LocalDateTime, dtFinish: LocalDateTime) =
         eventDao.getEventsForDay(dtStart, dtFinish)
 }

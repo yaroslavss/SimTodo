@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.yara.simtodo.R
 import ru.yara.simtodo.databinding.FragmentHomeBinding
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -66,6 +68,12 @@ class HomeFragment : Fragment() {
                 }
             }
             viewModel.currentDate = day
+        }
+
+        // add new event
+        val navController = findNavController()
+        binding.fab.setOnClickListener {
+            navController.navigate(R.id.addEventFragment)
         }
 
         // observe hours with events livedata
