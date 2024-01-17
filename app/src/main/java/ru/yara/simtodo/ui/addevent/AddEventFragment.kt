@@ -45,14 +45,14 @@ class AddEventFragment : Fragment() {
         val formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)
 
         // select date and time of event's start
-        binding.btnDTPickerStart.setOnClickListener {
+        binding.tilEventDTStart.setStartIconOnClickListener() {
             DateTimePicker(requireContext()) { dateTimeInMillis ->
                 binding.tietEventDTStart.setText(format.format(Date(dateTimeInMillis)).toString())
             }
         }
 
         // select date and time of event's end
-        binding.btnDTPickerEnd.setOnClickListener {
+        binding.tilEventDTEnd.setStartIconOnClickListener {
             DateTimePicker(requireContext()) { dateTimeInMillis ->
                 binding.tietEventDTEnd.setText(format.format(Date(dateTimeInMillis)).toString())
             }
