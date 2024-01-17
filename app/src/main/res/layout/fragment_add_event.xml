@@ -26,11 +26,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEventDT_Start"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_margin"
         android:elevation="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnDT_PickerStart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilEventTitle">
 
@@ -38,18 +38,29 @@
             android:id="@+id/tietEventDT_Start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:hint="@string/event_dt_start_label" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <Button
+        android:id="@+id/btnDT_PickerStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin_half"
+        android:text="@string/btn_dt_picker_label"
+        app:layout_constraintBottom_toTopOf="@id/tilEventDT_End"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tilEventDT_Start"
+        app:layout_constraintTop_toBottomOf="@id/tilEventTitle" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEventDT_End"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_margin"
         android:elevation="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnDT_PickerEnd"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilEventDT_Start">
 
@@ -57,9 +68,21 @@
             android:id="@+id/tietEventDT_End"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:hint="@string/event_dt_end_label" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnDT_PickerEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin_half"
+        android:text="@string/btn_dt_picker_label"
+        app:layout_constraintBottom_toTopOf="@id/tilEventDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tilEventDT_End"
+        app:layout_constraintTop_toBottomOf="@id/tilEventDT_Start" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEventDesc"
