@@ -11,7 +11,12 @@ import androidx.navigation.fragment.findNavController
 import ru.yara.simtodo.R
 import ru.yara.simtodo.data.db.EventEntity
 import ru.yara.simtodo.databinding.FragmentAddEventBinding
-import java.time.LocalDate
+import ru.yara.simtodo.utils.DateTimePicker
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Date
+import java.util.Locale
 
 class AddEventFragment : Fragment() {
 
@@ -36,15 +41,33 @@ class AddEventFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val format = SimpleDateFormat(DATE_TIME_FORMAT, Locale(LOCALE_LANGUAGE, LOCALE_COUNTRY))
+        val formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)
+
+        // select date and time of event's start
+        binding.tilEventDTStart.setStartIconOnClickListener() {
+            DateTimePicker(requireContext()) { dateTimeInMillis ->
+                binding.tietEventDTStart.setText(format.format(Date(dateTimeInMillis)).toString())
+            }
+        }
+
+        // select date and time of event's end
+        binding.tilEventDTEnd.setStartIconOnClickListener {
+            DateTimePicker(requireContext()) { dateTimeInMillis ->
+                binding.tietEventDTEnd.setText(format.format(Date(dateTimeInMillis)).toString())
+            }
+        }
+
         // add event
         val navController = findNavController()
+
         binding.btnAddEvent.setOnClickListener {
             val title = binding.tietEventTitle.text.toString()
             val dtStart = kotlin.runCatching {
-                LocalDate.parse(binding.tietEventDTStart.text.toString()).atStartOfDay()
+                LocalDateTime.parse(binding.tietEventDTStart.text.toString(), formatter)
             }.getOrNull()
             val dtEnd = kotlin.runCatching {
-                LocalDate.parse(binding.tietEventDTEnd.text.toString()).atStartOfDay().plusHours(1)
+                LocalDateTime.parse(binding.tietEventDTEnd.text.toString(), formatter)
             }.getOrNull()
             val desc = binding.tietEventDesc.text.toString()
 
@@ -74,5 +97,11 @@ class AddEventFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val DATE_TIME_FORMAT = "dd/MM/yyyy HH:mm"
+        const val LOCALE_LANGUAGE = "ru"
+        const val LOCALE_COUNTRY = "RU"
     }
 }
