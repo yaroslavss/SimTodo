@@ -40,7 +40,7 @@ class EventDaoTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun insertShoppingItem() = runTest {
+    fun insertEventEntity() = runTest {
         val dtStart = LocalDateTime.ofEpochSecond(
             1705557600L, 0,
             zoneOffset
