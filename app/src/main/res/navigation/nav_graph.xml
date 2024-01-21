@@ -14,4 +14,9 @@
         android:name="ru.yara.simtodo.ui.eventdetails.EventDetailsFragment"
         android:label="@string/event_details_fragment_label"
         tools:layout="@layout/fragment_event_details" />
+    <fragment
+        android:id="@+id/addEventFragment"
+        android:name="ru.yara.simtodo.ui.addevent.AddEventFragment"
+        android:label="@string/add_event_fragment_label"
+        tools:layout="@layout/fragment_add_event" />
 </navigation>
