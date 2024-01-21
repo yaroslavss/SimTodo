@@ -1,16 +1,30 @@
 [
   {
     "id":1,
-    "date_start":"1704103200",
-    "date_finish":"1704105000",
-    "name":"My task",
-    "description":"Описание моего дела"
+    "date_start":"1705831200",
+    "date_finish":"1705834800",
+    "name":"Подготовка к собеседованию",
+    "description":"Подготовка к собеседованию"
   },
   {
     "id":2,
-    "date_start":"1704105000",
-    "date_finish":"1704106800",
-    "name":"My task 2",
-    "description":"Описание моего дела 2"
+    "date_start":"1705834800",
+    "date_finish":"1705842000",
+    "name":"Работа над тестовым заданием",
+    "description":"Работа над тестовым заданием"
+  },
+  {
+    "id":3,
+    "date_start":"1705839300",
+    "date_finish":"1705840200",
+    "name":"Покормить кошку",
+    "description":"Покормить кошку"
+  },
+  {
+    "id":4,
+    "date_start":"1705845600",
+    "date_finish":"1705849200",
+    "name":"Чтение Р.Мартина \"Clean Architecture\"",
+    "description":"Чтение Р.Мартина \"Clean Architecture\""
   }
 ]
