@@ -45,7 +45,11 @@ class HomeViewModel : ViewModel() {
             Hour(
                 startHour = start,
                 endHour = end,
-                eventList = eventList.filter { (it.dateStart >= start && it.dateStart < end) || (it.dateFinish > start && it.dateFinish <= end) }
+                eventList = eventList.filter {
+                    (it.dateStart >= start && it.dateStart < end) ||
+                            (it.dateFinish > start && it.dateFinish <= end) ||
+                            (it.dateStart < start && it.dateFinish > end)
+                }
             )
         }
 
